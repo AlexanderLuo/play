@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script>
+
+</script>
+<body>
+
+<!--<img src="./74377.jpg">-->
+
+
+<canvas id="test"  width="700" height="600" style="border:1px solid #c3c3c3;"></canvas>
+</body>
+
+<script>
+
+
+
+    var hiddenImage = new Image();
+    hiddenImage.src='74377.jpg';
+
+        console.log(hiddenImage.height);
+        console.log(hiddenImage.width);
+
+
+    var c = document.getElementById('test');
+    context = c.getContext('2d');
+
+
+    hiddenImage .onload=function(){
+        context .drawImage(hiddenImage, 0,0);
+
+        var imageData=context.getImageData(0, 0, hiddenImage.width, hiddenImage.height)
+
+
+        var reba=[]
+
+        for(var j=0;j<hiddenImage.height;j+=1){
+            for(var i=0;i<hiddenImage.width;i+=1){
+                //注意这里获取图片信息后可以进行定制化处理
+                var offset=4*(hiddenImage.width*j+i);
+                var red = imageData[offset];
+                var green = imageData[offset + 1];
+                var blue = imageData[offset + 2];
+                var brightness = getBrightness(red,green,blue);
+                reba.push({red,green,blue,brightness})
+            }
+
+            function getBrightness(r,g,b){
+                return 0.3*r + 0.59*g + 0.11*b;
+            }
+    }
+
+        console.log(reba.length)
+
+
+    }
+
+
+
+
+
+    //    var imageData = context.getImageData(0, 0, w, h);
+
+</script>
+
+
+
+</html>
